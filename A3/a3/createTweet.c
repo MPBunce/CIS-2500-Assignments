@@ -1,0 +1,41 @@
+#include "headerA3.h"
+
+tweet * createTweet(tweet * tweetList){
+
+    printf("\n");
+    fflush(stdin);
+
+    //Taking in new information
+
+    tweet * newNode = (tweet *)malloc( sizeof(tweet) );
+    printf("Enter a username: ");
+    fgets(newNode->user, 51, stdin);
+
+    printf("Enter the user's tweet: ");
+    fgets(newNode->text, 141, stdin);
+
+    newNode->user[strcspn(newNode->user, "\n")] = 0;
+    newNode->text[strcspn(newNode->text, "\n")] = 0;
+
+    //Calculating Unique User ID
+
+    int sum = 0;
+    int lengthUser = strlen(newNode->user);
+
+    for(int i = 0; i < lengthUser; ++i){
+        sum += newNode->user[i];
+    }
+
+    int lengthText = strlen(newNode->text);
+
+    //Assigning to linkedList
+
+    newNode->id = lengthText + sum;
+    newNode->next = NULL;
+
+    addNodeToList(&tweetList, newNode);
+
+    printf("\n");
+    return tweetList;
+
+}
